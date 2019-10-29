@@ -1,0 +1,10 @@
+version: 0.2         
+phases:
+  build:
+    commands:
+      - make build
+      - make test
+artifacts:
+  files:
+    - '**/*'
+  name: kinesis-cicd-$(date +%Y-%m-%d)
