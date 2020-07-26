@@ -1,0 +1,9 @@
+terminal-1: run fluent-bit-for-kinesis image
+cd to the root folder: cd amazon-kinesis-streams-for-fluent-bit (guessing you are already there)
+docker build -t kinesis .
+docker run --rm -v $(pwd):/fluent-bit/etc/ -v $HOME:/home -e "HOME=/home" -e="FLB_LOG_LEVEL=debug" -p 24224:24224 kinesis:latest
+
+terminal-2: run docker image with the logger application
+cd amazon-kinesis-streams-for-fluent-bit/local-test
+docker build -f Dockerfile.logger -t c-docker-app .
+docker run --rm --log-driver=fluentd --name=my-c-docker-app c-docker-app
